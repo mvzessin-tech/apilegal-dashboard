@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>api. Legal — Dashboard</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700;800&display=swap');
+
+  :root {
+    --yellow: #DFFF00;
+    --dark: #0D1E2C;
+    --mint: #C8DDD6;
+    --pink: #F0B8E4;
+    --gray: #8a9ba8;
+    --border: rgba(255,255,255,0.08);
+    --card-bg: rgba(255,255,255,0.04);
+    --card-hover: rgba(255,255,255,0.07);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--dark);
+    color: #e8eef2;
+    font-family: 'Syne', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── TOP BAR ── */
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 36px;
+    border-bottom: 1px solid var(--border);
+    background: rgba(13,30,44,0.97);
+    backdrop-filter: blur(12px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .logo-wordmark {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .logo-circle {
+    width: 36px; height: 36px;
+    background: var(--yellow);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .logo-circle span {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 9px;
+    color: var(--dark);
+    line-height: 1.1;
+    text-align: center;
+  }
+
+  .site-title {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: #fff;
+  }
+
+  .quick-links {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .quick-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    padding: 8px 18px;
+    border-radius: 5px;
+    font-weight: 500;
+    transition: opacity 0.18s, background 0.18s;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .quick-links a.btn-teams {
+    background: var(--yellow);
+    color: var(--dark);
+  }
+  .quick-links a.btn-teams:hover { opacity: 0.82; }
+
+  .quick-links a.btn-notes {
+    background: transparent;
+    color: #e8eef2;
+    border: 1.5px solid rgba(255,255,255,0.16);
+  }
+  .quick-links a.btn-notes:hover {
+    background: rgba(255,255,255,0.06);
+    border-color: rgba(255,255,255,0.3);
+  }
+
+  /* ── MAIN ── */
+  .main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 36px 60px;
+  }
+
+  /* ── COUNTDOWN ── */
+  .countdown-wrap {
+    margin-bottom: 40px;
+    background: var(--yellow);
+    border-radius: 12px;
+    padding: 28px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    animation: fadeUp 0.45s ease both;
+  }
+
+  .countdown-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--dark);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    opacity: 0.5;
+  }
+
+  .countdown-date {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--dark);
+    margin-top: 4px;
+    letter-spacing: -0.01em;
+  }
+
+  .countdown-sub {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--dark);
+    opacity: 0.42;
+    margin-top: 6px;
+  }
+
+  .countdown-right {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+
+  .countdown-days-num {
+    font-size: 96px;
+    font-weight: 800;
+    color: var(--dark);
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+
+  .countdown-days-word {
+    font-family: 'DM Mono', monospace;
+    font-size: 16px;
+    color: var(--dark);
+    opacity: 0.45;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding-bottom: 12px;
+  }
+
+  /* ── SECTION LABEL ── */
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 14px;
+  }
+
+  /* ── BEREICHE ── */
+  .bereiche {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 40px;
+    animation: fadeUp 0.45s 0.08s ease both;
+  }
+
+  .bereich-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    text-decoration: none;
+    transition: background 0.2s, border-color 0.2s, transform 0.15s;
+  }
+
+  .bereich-card:hover {
+    background: var(--card-hover);
+    border-color: rgba(255,255,255,0.18);
+    transform: translateY(-2px);
+  }
+
+  /* Gründung: just a rocket emoji, no circle */
+  .bereich-icon-rocket {
+    font-size: 28px;
+    line-height: 1;
+    width: 38px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  /* Logo circles for the other three */
+  .bereich-icon-logo {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .bereich-icon-logo.dark  { background: #152333; border: 1.5px solid rgba(255,255,255,0.14); }
+  .bereich-icon-logo.pink  { background: var(--pink); }
+  .bereich-icon-logo.mint  { background: var(--mint); }
+
+  .bereich-icon-logo .api-text {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 6.5px;
+    line-height: 1.2;
+    text-align: center;
+    color: var(--dark);
+  }
+
+  .bereich-icon-logo.dark .api-text { color: #fff; }
+
+  .bereich-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: #e8eef2;
+    line-height: 1.3;
+  }
+
+  /* ── DASHBOARD GRID ── */
+  .dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    animation: fadeUp 0.45s 0.16s ease both;
+  }
+
+  .col-left, .col-right {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  /* Each card grows equally within its column */
+  .col-left .dash-card,
+  .col-right .dash-card {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .dash-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 22px 24px;
+    transition: border-color 0.2s;
+  }
+
+  .dash-card:hover { border-color: rgba(255,255,255,0.15); }
+
+  .dash-card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+    flex-shrink: 0;
+  }
+
+  .dash-card-icon { font-size: 15px; line-height: 1; }
+
+  .dash-card-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gray);
+  }
+
+  /* Body fills remaining space */
+  .card-body { flex: 1; }
+
+  .dash-card-value.muted {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--gray);
+    font-style: italic;
+  }
+
+  /* ── TODO ── */
+  .todo-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+  }
+
+  .todo-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: #c5d0d8;
+    cursor: pointer;
+  }
+
+  .todo-box {
+    width: 16px; height: 16px;
+    border: 1.5px solid rgba(255,255,255,0.2);
+    border-radius: 3px;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    transition: border-color 0.15s, background 0.15s;
+  }
+
+  .todo-item:hover .todo-box { border-color: var(--yellow); }
+
+  .todo-box.checked {
+    background: var(--yellow);
+    border-color: var(--yellow);
+  }
+  .todo-box.checked::after {
+    content: '✓';
+    font-size: 10px;
+    color: var(--dark);
+    font-weight: 700;
+  }
+
+  .todo-text.checked {
+    text-decoration: line-through;
+    opacity: 0.36;
+  }
+
+  /* ── TERMINE ── */
+  .termin {
+    display: flex;
+    gap: 14px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+    color: #c5d0d8;
+    align-items: flex-start;
+  }
+  .termin:last-child { border-bottom: none; padding-bottom: 0; }
+  .termin:first-child { padding-top: 0; }
+
+  .termin-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--yellow);
+    min-width: 44px;
+    padding-top: 2px;
+    flex-shrink: 0;
+    letter-spacing: 0.03em;
+  }
+
+  /* ── LINKEDIN ── */
+  .li-post {
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    color: var(--gray);
+    border-left: 2px solid var(--yellow);
+    background: rgba(255,255,255,0.025);
+    margin-bottom: 8px;
+    line-height: 1.5;
+  }
+  .li-post:last-child { margin-bottom: 0; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="logo-wordmark">
+    <div class="logo-circle"><span>api.<br>Legal</span></div>
+    <span class="site-title">api. Legal — Dashboard</span>
+  </div>
+  <nav class="quick-links">
+    <a class="btn-teams" href="https://teams.live.com/meet/9386017000234?p=WlGTsbVdXFA0cbRR0B" target="_blank">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      Teams-Call beitreten
+    </a>
+    <a class="btn-notes" href="https://www.notion.so/2e95f53b672b8009ac3fcf119ffbcaa6" target="_blank">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+      Meeting Notes
+    </a>
+  </nav>
+</header>
+
+<main class="main">
+
+  <!-- COUNTDOWN -->
+  <div class="countdown-wrap">
+    <div>
+      <div class="countdown-label">Countdown bis interner Launch</div>
+      <div class="countdown-date">13. April 2026</div>
+      <div class="countdown-sub">Öffentlicher Launch: 04. Mai 2026</div>
+    </div>
+    <div class="countdown-right">
+      <span class="countdown-days-num" id="cd-days">--</span>
+      <span class="countdown-days-word">Tage</span>
+    </div>
+  </div>
+
+  <!-- BEREICHE -->
+  <div class="section-label">Bereiche</div>
+  <div class="bereiche">
+
+    <a class="bereich-card" href="https://www.notion.so/3135f53b672b8173bb6bf60b19473913" target="_blank">
+      <div class="bereich-icon-rocket">🚀</div>
+      <div class="bereich-name">Gründung &amp; Launch</div>
+    </a>
+
+    <a class="bereich-card" href="https://www.notion.so/3135f53b672b815ab322d67a5e468b2d" target="_blank">
+      <div class="bereich-icon-logo dark">
+        <span class="api-text">api.<br>Legal</span>
+      </div>
+      <div class="bereich-name">Operations</div>
+    </a>
+
+    <a class="bereich-card" href="https://www.notion.so/3135f53b672b818fb11ee56c7acfc2ec" target="_blank">
+      <div class="bereich-icon-logo pink">
+        <span class="api-text">api.<br>Legal</span>
+      </div>
+      <div class="bereich-name">Marketing &amp; Sichtbarkeit</div>
+    </a>
+
+    <a class="bereich-card" href="https://www.notion.so/3135f53b672b81feb284dc78d623b93e" target="_blank">
+      <div class="bereich-icon-logo mint">
+        <span class="api-text">api.<br>Legal</span>
+      </div>
+      <div class="bereich-name">Knowledge Base</div>
+    </a>
+
+  </div>
+
+  <!-- DASHBOARD GRID -->
+  <div class="section-label">Diese Woche</div>
+  <div class="dashboard-grid">
+
+    <!-- LEFT -->
+    <div class="col-left">
+
+      <div class="dash-card">
+        <div class="dash-card-header">
+          <span class="dash-card-icon">🗓️</span>
+          <span class="dash-card-title">Gemeinsame Termine</span>
+        </div>
+        <div class="card-body">
+          <div class="termin"><span class="termin-date">Mo.</span><span>Termin eintragen</span></div>
+          <div class="termin"><span class="termin-date">Mi.</span><span>Termin eintragen</span></div>
+          <div class="termin"><span class="termin-date">Fr.</span><span>Termin eintragen</span></div>
+        </div>
+      </div>
+
+      <div class="dash-card">
+        <div class="dash-card-header">
+          <span class="dash-card-icon">✅</span>
+          <span class="dash-card-title">To-Dos diese Woche</span>
+        </div>
+        <div class="card-body">
+          <ul class="todo-list">
+            <li class="todo-item" onclick="toggleTodo(this)">
+              <div class="todo-box"></div><span class="todo-text">To-Do eintragen</span>
+            </li>
+            <li class="todo-item" onclick="toggleTodo(this)">
+              <div class="todo-box"></div><span class="todo-text">To-Do eintragen</span>
+            </li>
+            <li class="todo-item" onclick="toggleTodo(this)">
+              <div class="todo-box"></div><span class="todo-text">To-Do eintragen</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="dash-card">
+        <div class="dash-card-header">
+          <span class="dash-card-icon">💼</span>
+          <span class="dash-card-title">LinkedIn-Posts diese Woche</span>
+        </div>
+        <div class="card-body">
+          <div class="li-post">Post eintragen — Autor · Thema</div>
+          <div class="li-post">Post eintragen — Autor · Thema</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT -->
+    <div class="col-right">
+
+      <div class="dash-card">
+        <div class="dash-card-header">
+          <span class="dash-card-icon">📊</span>
+          <span class="dash-card-title">Nächster KPI Check-In</span>
+        </div>
+        <div class="card-body">
+          <div class="dash-card-value muted">Datum eintragen</div>
+        </div>
+      </div>
+
+      <div class="dash-card">
+        <div class="dash-card-header">
+          <span class="dash-card-icon">📣</span>
+          <span class="dash-card-title">Nächster Marketing Check-In</span>
+        </div>
+        <div class="card-body">
+          <div class="dash-card-value muted">Datum eintragen</div>
+        </div>
+      </div>
+
+      <div class="dash-card">
+        <div class="dash-card-header">
+          <span class="dash-card-icon">🎤</span>
+          <span class="dash-card-title">Nächster öffentlicher Auftritt</span>
+        </div>
+        <div class="card-body">
+          <div class="dash-card-value muted">Veranstaltung und Datum eintragen</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<script>
+function updateCountdown() {
+  const today = new Date();
+  const target = new Date(2026, 3, 13); // April 13, 2026
+  const todayMidnight = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+  const days = Math.max(0, Math.round((target - todayMidnight) / (1000 * 60 * 60 * 24)));
+  document.getElementById('cd-days').textContent = days;
+}
+updateCountdown();
+
+function toggleTodo(item) {
+  const box = item.querySelector('.todo-box');
+  const text = item.querySelector('.todo-text');
+  box.classList.toggle('checked');
+  text.classList.toggle('checked');
+}
+</script>
+</body>
+</html>
