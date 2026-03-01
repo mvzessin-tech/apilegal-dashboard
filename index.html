@@ -125,6 +125,7 @@ body {
 .show-all {
   font-size:9.5px; color:#334155; margin-top:7px;
   cursor:pointer; display:inline-flex; align-items:center; gap:3px;
+  text-decoration:none;
 }
 .show-all:hover { color:#64748b; }
 
@@ -136,6 +137,7 @@ body {
   border-radius:7px; padding:10px 13px;
   display:flex; align-items:center; gap:10px;
   cursor:pointer; transition:background 0.15s;
+  text-decoration:none;
 }
 .b-card:hover { background:rgba(255,255,255,0.07); }
 .b-icon {
@@ -182,8 +184,9 @@ body {
   <div>
     <div class="lbl">Quick Links</div>
     <div class="ql-grid">
-      <a class="ql-btn ql-yellow" href="#">👥 Teams-Call beitreten</a>
-      <a class="ql-btn ql-dark"   href="#">📄 Meeting Notes</a>
+      <!-- TEAMS LINK: bitte DEIN_TEAMS_LINK durch den echten Teams-Call-Link ersetzen -->
+      <a class="ql-btn ql-yellow" href="https://teams.live.com/meet/9386017000234?p=WlGTsbVdXFA0cbRR0B" target="_blank">👥 Teams-Call beitreten</a>
+      <a class="ql-btn ql-dark" href="https://www.notion.so/2e95f53b672b8009ac3fcf119ffbcaa6" target="_blank">📄 Meeting Notes</a>
     </div>
   </div>
 
@@ -253,7 +256,7 @@ body {
           </tr>
         </tbody>
       </table>
-      <div class="show-all">↗ Alle 11 Tasks in der Datenbank</div>
+      <a class="show-all" href="https://www.notion.so/11b75a553ef2463ba6d5319a18b8f2af" target="_blank">↗ Alle 11 Tasks in der Datenbank</a>
     </div>
   </div>
 
@@ -261,22 +264,22 @@ body {
   <div>
     <div class="lbl">Bereiche</div>
     <div class="bereiche-grid">
-      <div class="b-card">
+      <a class="b-card" href="https://www.notion.so/3135f53b672b8173bb6bf60b19473913" target="_blank">
         <div class="b-icon yell">🚀</div>
         <div class="b-name">Gründung &amp; Launch</div>
-      </div>
-      <div class="b-card">
+      </a>
+      <a class="b-card" href="https://www.notion.so/3135f53b672b815ab322d67a5e468b2d" target="_blank">
         <div class="b-icon mint"><div class="b-logo">api.<br>Legal</div></div>
         <div class="b-name">Operations</div>
-      </div>
-      <div class="b-card">
+      </a>
+      <a class="b-card" href="https://www.notion.so/3135f53b672b818fb11ee56c7acfc2ec" target="_blank">
         <div class="b-icon pink"><div class="b-logo">api.<br>Legal</div></div>
         <div class="b-name">Marketing &amp; Sichtbarkeit</div>
-      </div>
-      <div class="b-card">
+      </a>
+      <a class="b-card" href="https://www.notion.so/3135f53b672b81feb284dc78d623b93e" target="_blank">
         <div class="b-icon dblue"><div class="b-logo w">api.<br>Legal</div></div>
         <div class="b-name">Knowledge Base</div>
-      </div>
+      </a>
     </div>
   </div>
 
